@@ -10,7 +10,7 @@ const orderItemsSchema = mongoose.Schema(
     }
 )
 
-const orderSchema = mongoose.Schema(
+const orderSchema =new mongoose.Schema(
     {
         user: {type:mongoose.Schema.Types.ObjectId, required:true, ref: "User"},
         orderItems: [orderItemsSchema],

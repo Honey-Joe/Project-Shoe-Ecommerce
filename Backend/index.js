@@ -4,12 +4,13 @@ const mongoose = require("mongoose");
 const app = express();
 const userRoutes = require("./routes/userRoutes")
 dotenv.config()
+app.use(express.json());
 
 app.get("/", (req,res)=>{
     res.send("Hi")
 })
 
-app.use("/api/login" , userRoutes)
+app.use("/api/users" , userRoutes)
 
 mongoose.connect(process.env.MONGO_URI).then(()=>{console.log("db connected")});
 
