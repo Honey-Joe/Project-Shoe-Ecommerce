@@ -6,6 +6,7 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import ProductRoute from "./components/ProductRoute/ProductRoute";
+import "./index.css"
 
 const AppLayout = ()=>{
   return(
