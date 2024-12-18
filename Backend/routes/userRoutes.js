@@ -2,6 +2,8 @@ const express = require("express");
 const userRoutes = express.Router();
 const User = require("../models/User");
 const AsyncHandler = require("express-async-handler");
+const generateToken = require("../tokenGeneretor");
+const protect = require("../middleware/Auth");
 
 
 //login
@@ -13,8 +15,13 @@ userRoutes.post(
     const user = await User.findOne({ email });
     if (user && (await user.matchpassword(password))) {
       res.json({
-        data: user,
-        message: "logged in",
+        id: user._id,
+        name: user.name,
+        email:user.email,
+        password:user.password,
+        isadmin:user.isadmin,
+        createdAt: user.createdAt,
+        token: generateToken(user._id)
       });
     } else {
       res.status(401);
@@ -49,5 +56,38 @@ userRoutes.post(
     }
   })
 );
+//profile data 
+userRoutes.get("/profile", protect ,  AsyncHandler(async(req,res)=>{
+  const user = await User.findById(req.user._id);
+  if(user){
+    res.json({
+      id: user._id,
+        name: user.name,
+        email:user.email,
+        password:user.password,
+        isadmin:user.isadmin,
+        createdAt: user.createdAt,
+    })
+  }else{
+    res.status(404);
+    throw new Error("User Not Found")
+  }
+}))
+//updated profile
+userRoutes.put("/profile", protect , AsyncHandler(async(res,req)=>{
+  const user = await User.findById(req.body._id);
+  if(user){
+    user.name= req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if(req.body.password){
+      user.password = req.body.password;
+    }
+    const userupdate = await User.save();
+  }
+  else{
+    res.status(404);
+    throw new Error ("User not found");
+  }
+}))
 
 module.exports = userRoutes;
