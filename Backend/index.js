@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const app = express();
 const userRoutes = require("./routes/userRoutes");
 const router = require("./databaseSeeder");
+const productRoutes = require("./routes/productRoutes");
+const orderRoute = require("./routes/orderRoutes");
 dotenv.config();
 app.use(express.json());
 
@@ -18,6 +20,8 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes );
+app.use("/api/orders", orderRoute);
 app.use("/api/seed",router)
 const PORT = process.env.PORT;
 app.listen(PORT || 3000, () => {
