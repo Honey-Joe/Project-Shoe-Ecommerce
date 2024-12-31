@@ -19,7 +19,7 @@ export const productReducers = (state = {product:{reviews:[]}}, action)=>{
         case PRODUCT_DETAIL_REQ:
             return { loading: true , ...state}
         case PRODUCT_DETAIL_REQ_SUCCESS:
-            return{ loading: false , product: action.payload.products}
+            return{ loading: false , product: action.payload}
         case PRODUCT_DETAIL_REQ_FAIL:
             return {loading:false , error: action.payload}
         default:

@@ -27,8 +27,8 @@ export const productAction = (id) => async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_DETAIL_REQ });
   
-      const { data } = await axios.get(BASE_URL + "/api/products/"+id);
-  
+      const { data } = await axios.get(BASE_URL + "/api/products/"+ id);
+      console.log(data)
       dispatch({ type: PRODUCT_DETAIL_REQ_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
