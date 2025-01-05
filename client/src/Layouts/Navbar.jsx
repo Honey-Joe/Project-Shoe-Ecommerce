@@ -1,6 +1,19 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {  UserDropdown } from "../components/DropDown";
+import { userLogoutAction } from "../Redux/Actions/User";
+import { Link } from "react-router-dom";
+
+
 
 const Navbar = () => {
+  const userLoginReducer = useSelector((state)=>state.userLoginReducer)
+  const {userInfo } = userLoginReducer;
+  const dispatch = useDispatch()
+
+  const logoutHandler = ()=>{
+    dispatch(userLogoutAction());
+  }
   return (
     <div>
       <nav class="bg-white border-gray-200 dark:bg-gray-900">
@@ -86,6 +99,16 @@ const Navbar = () => {
                 </a>
               </li>
             </ul>
+          </div>
+          <div>
+            {
+              userInfo?(<button className="bg-blue-500 rounded-lg">
+               <UserDropdown logoutHandler={logoutHandler}></UserDropdown>
+              </button>):(<Link to={"/register"}><button className="bg-blue-500 rounded-lg px-5 py-1 text-white  font-bold">
+              Get Started
+            </button></Link>)
+            }
+            
           </div>
         </div>
       </nav>

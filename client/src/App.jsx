@@ -1,14 +1,14 @@
-import { useState } from "react";
-import Layout from "./Layouts/Layout";
-import Example from "./components/Product";
 import Home from "./pages/Home";
-import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import ProductDetails from "./pages/ProductDetails";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [count, setCount] = useState(0);
+
+  const userLoginReducer = useSelector((state)=>state.userLoginReducer);
+  const {userInfo} = userLoginReducer;
 
   return (
     <>
@@ -16,8 +16,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/details/:id' element={<ProductDetails></ProductDetails>}></Route>
-        <Route path="/login" element={<Login></Login>}></Route>
-        <Route path="/register" element={<Register />}></Route>
+        <Route path="/login" element={userInfo?<Navigate to={"/"}></Navigate>:<Login></Login>}></Route>
+        <Route path="/register" element={userInfo?<Navigate to={"/"}></Navigate>:<Register></Register>}></Route>
       </Routes>
     </Router>
     </>
