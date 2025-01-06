@@ -61,7 +61,6 @@ export default function Example() {
   useEffect(() => {
     dispatch(productListAction());
   }, [dispatch]);
-  console.log(products);
   return (
     <>
       {loading ? (
