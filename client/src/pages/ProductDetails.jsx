@@ -31,9 +31,7 @@ const ProductDetails = () => {
                 src={product?.image}
               />
               <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                <h2 class="text-sm title-font text-gray-500 tracking-widest">
-                  BRAND NAME
-                </h2>
+                
                 <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">
                   {product.name}
                 </h1>
